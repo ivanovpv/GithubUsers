@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .defaultDisplayImageOptions(defaultOptions)
                 .build();
         ImageLoader.getInstance().init(config);
