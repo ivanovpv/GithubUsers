@@ -6,9 +6,14 @@ import android.app.Application;
 import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
 
-public class Me extends Application implements HasActivityInjector {
+public class Me extends Application {
+
+    private static MeComponent component;
+
+    public static MeComponent getComponent() {
+        return component;
+    }
 
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
@@ -16,11 +21,9 @@ public class Me extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-        DaggerMeComponent.create().inject(this);
+        component=DaggerMeComponent.builder().meModule(new MeModule(this)).build();
+
+        //component=buildComponent();
     }
 
-    @Override
-    public DispatchingAndroidInjector<Activity> activityInjector() {
-        return dispatchingAndroidInjector;
-    }
 }

@@ -8,23 +8,28 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import ru.ivanovpv.githubusers.model.User;
+import ru.ivanovpv.githubusers.presenter.IPresenter;
 
 public class UserListAdapter extends PagedListAdapter<User, UserListViewHolder> {
 
     @Inject
-    UserListAdapter() {
+    IPresenter presenter;
+
+    @Inject
+    public UserListAdapter() {
         super(UserListAdapter.DIFF_CALLBACK);
     }
 
     @NonNull
     @Override
     public UserListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return UserListViewHolder.create(parent);
+        return UserListViewHolder.create(parent, presenter);
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserListViewHolder holder, int position) {
         holder.bindTo(getItem(position));
+        presenter.onBindUserRowViewAtPosition(position, holder);
     }
 
     // Allows the adapter to calculate the difference between the old list and new list. This also simplifies animations.

@@ -1,9 +1,11 @@
 package ru.ivanovpv.githubusers;
 
-import dagger.Component;
-import dagger.android.AndroidInjectionModule;
-import dagger.android.AndroidInjector;
+import javax.inject.Singleton;
 
-@Component(modules = { AndroidInjectionModule.class, MeModule.class})
-public interface MeComponent extends AndroidInjector<Me> {
+import dagger.Component;
+
+@Singleton
+@Component(modules = { MeModule.class})
+public interface MeComponent {
+    void inject(MainActivity mainActivity);
 }
